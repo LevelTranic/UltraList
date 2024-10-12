@@ -17,6 +17,7 @@ import org.slf4j.LoggerFactory;
 @Plugin(
         id = "ultralist",
         name = "UltraList",
+        description = "Provide (v)plugins and (v)list commands on Velocity.",
         version = BuildConstants.VERSION,
         url = "https://tranic.one",
         authors = {"404"}

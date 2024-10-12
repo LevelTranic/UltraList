@@ -50,7 +50,7 @@ public class ListCommand implements SimpleCommand {
             }
             Collection<Player> players = server.getPlayersConnected();
             if (players.isEmpty()) {
-                builder.append(Component.text("<No Players>\n", NamedTextColor.RED));
+                builder.append(Component.text("<Server is empty>\n", NamedTextColor.RED));
                 continue;
             }
             int i = 0;

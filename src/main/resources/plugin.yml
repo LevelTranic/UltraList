@@ -3,5 +3,14 @@ version: '1.0-SNAPSHOT'
 main: one.tranic.ultralist.bukkit.Main
 api-version: '1.18'
 load: STARTUP
-authors: [ 404 ]
+authors: [ "404" ]
 website: https://tranic.one
+commands:
+  plugins:
+    description: "plugins command"
+    permission: ultralist.plugins
+  list:
+    description: "list command"
+    permission: ultralist.list
+depend:
+  - MavenLoader
