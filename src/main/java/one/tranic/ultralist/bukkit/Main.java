@@ -22,9 +22,11 @@ public final class Main extends JavaPlugin {
             throw new IllegalStateException("Tried to access Adventure when the plugin was disabled!");
         return adventure;
     }
+
     @Override
     public void onEnable() {
-        adventure = BukkitAudiences.create(this);
+        if (adventure == null)
+            adventure = BukkitAudiences.create(this);
         logger.info("Initializing UltraList (Spigot)");
         metrics = new Metrics(this, 23595);
         try {

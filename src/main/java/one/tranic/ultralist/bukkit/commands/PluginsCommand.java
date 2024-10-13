@@ -3,20 +3,23 @@ package one.tranic.ultralist.bukkit.commands;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.TextComponent;
 import net.kyori.adventure.text.format.NamedTextColor;
+import net.kyori.adventure.text.format.TextColor;
 import one.tranic.ultralist.bukkit.ExpandDescription;
 import one.tranic.ultralist.bukkit.Main;
 import one.tranic.ultralist.common.CommonData;
+import one.tranic.ultralist.common.ComponentUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.Plugin;
-import org.bukkit.plugin.PluginDescriptionFile;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 import org.simpleyaml.configuration.file.YamlConfiguration;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.HashMap;
 
 public class PluginsCommand extends Command {
     public PluginsCommand() {
@@ -30,54 +33,59 @@ public class PluginsCommand extends Command {
             Main.adventure().sender(sender).sendMessage(Component.text("You do not have permission to use this command!", NamedTextColor.RED));
             return true;
         }
-        TextComponent.@NotNull Builder builder = Component.text();
-        builder.append(Component.text("Plugins: \n", NamedTextColor.GOLD).append(CommonData.reset()));
-        int i = 0;
         Plugin[] plugins = Bukkit.getPluginManager().getPlugins();
         int size = plugins.length;
-        for (Plugin plugin : plugins) {
-            PluginDescriptionFile desc = plugin.getDescription();
-            ExpandDescription expDesc = getExpandDescription(plugin);
 
-            TextComponent.@NotNull Builder hover = Component.text();
+        TextComponent.@NotNull Builder builder = Component.text();
 
-            if (!desc.getAuthors().isEmpty()) {
-                int r = 0;
-                StringBuilder authorStr = new StringBuilder();
-                for (String a : desc.getAuthors()) {
-                    authorStr.append(a);
-                    if (r != desc.getAuthors().size() - 1) {
-                        authorStr.append(", ");
-                    }
-                    r++;
-                }
-                hover.append(Component.text("Author: " + authorStr));
-            } else {
-                hover.append(Component.text("\n"));
-            }
-            hover.append(Component.text("Version: " + desc.getVersion()));
-            hover.append(Component.text("\nAPI Version: " + desc.getAPIVersion()));
-            if (desc.getDescription() != null) {
-                hover.append(Component.text("\nDescription: " + desc.getDescription()));
-            }
-            hover.append(Component.text("\nWebsite: " + desc.getWebsite()));
-            if (expDesc != null) {
-                hover.append(Component.text("\nPaper Plugin: " + (expDesc.isPaperPlugin() ? "Yes" : "No")));
-                hover.append(Component.text("\nSupported Folia: " + (expDesc.isFolia() ? "Yes" : "No")));
-            }
-
-            builder.append(Component.text(plugin.getName(), NamedTextColor.GREEN).hoverEvent(hover.build()));
-
-            if (i < size - 1) {
-                builder.append(CommonData.reset().append(Component.text(", ")));
-            }
-            i++;
+        if (size == 0) {
+            builder.append(Component.text("Plugins (" + size + "): \n", NamedTextColor.GOLD).append(CommonData.reset()));
+            builder.append(Component.text("<No plugins found>", NamedTextColor.RED));
+            Main.adventure().sender(sender).sendMessage(builder.build());
+            return true;
         }
+
+        HashMap<Plugin, ExpandDescription> classicPlugins = new HashMap<>();
+        HashMap<Plugin, ExpandDescription> paperPlugins = new HashMap<>();
+
+        for (Plugin plugin : plugins) {
+            ExpandDescription expand = getExpandDescription(plugin);
+            if (expand.isPaperPlugin()) {
+                paperPlugins.put(plugin, expand);
+            } else classicPlugins.put(plugin, expand);
+        }
+
+        if (!paperPlugins.isEmpty()) {
+            TextComponent.@NotNull Builder paperBuilder = Component.text();
+
+            paperBuilder.append(Component.text("Paper Plugins:", TextColor.color(2, 136, 209)));
+            paperBuilder.append(Component.text("(" + paperPlugins.size() + "):", TextColor.color(2, 136, 209)));
+            paperBuilder.append(CommonData.resetN());
+
+            paperBuilder.append(ComponentUtils.formatBukkitPlugins(paperPlugins));
+
+            builder.append(paperBuilder.build());
+        }
+
+        if (!classicPlugins.isEmpty()) {
+            TextComponent.@NotNull Builder classicBuilder = Component.text();
+            classicBuilder.append(Component.text("Bukkit Plugins:", TextColor.color(237, 129, 6)));
+            classicBuilder.append(Component.text("(" + classicPlugins.size() + "):", TextColor.color(237, 129, 6)));
+            classicBuilder.append(CommonData.resetN());
+
+            classicBuilder.append(ComponentUtils.formatBukkitPlugins(classicPlugins));
+
+            if (!paperPlugins.isEmpty()) {
+                builder.append(Component.text("\n"));
+            }
+            builder.append(classicBuilder.build());
+        }
+
         Main.adventure().sender(sender).sendMessage(builder.build());
         return true;
     }
 
-    private ExpandDescription getExpandDescription(Plugin plugin) {
+    private @NotNull ExpandDescription getExpandDescription(Plugin plugin) {
         try (InputStream paperPlugin = plugin.getResource("paper-plugin.yml")) {
             if (paperPlugin != null) {
                 try {
@@ -94,17 +102,18 @@ public class PluginsCommand extends Command {
                 try {
                     YamlConfiguration configuration = YamlConfiguration.loadConfiguration(bukkitPlugin);
                     return new ExpandDescription(configuration.getBoolean("folia-supported"), false);
-                } catch (IOException ignored) {
+                } catch (Exception e) {
+                    e.printStackTrace();
                 }
             }
-        } catch (IOException ignored) {
+        } catch (Exception e) {
+            e.printStackTrace();
         }
 
-        return null;
+        return new ExpandDescription(false, false);
     }
 
     private boolean hasPermission(@NotNull CommandSender sender) {
         return !(sender instanceof Player) || this.testPermission(sender);
     }
 }
-

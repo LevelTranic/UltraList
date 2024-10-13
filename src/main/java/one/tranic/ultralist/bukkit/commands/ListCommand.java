@@ -69,9 +69,9 @@ public class ListCommand extends Command {
                 hover.append(Component.text("Connect Address: ", NamedTextColor.BLUE).append(Component.text(player.getAddress().getHostString(), NamedTextColor.GOLD)));
                 hover.append(CommonData.resetN());
             }
-            String locate = player.getLocation().getX() + "," +
-                    player.getLocation().getY() + "," +
-                    player.getLocation().getZ();
+            String locate = Math.round(player.getLocation().getX() * 100) / 100f + ", " +
+                    Math.round(player.getLocation().getY() * 100) / 100f + ", " +
+                    Math.round(player.getLocation().getZ() * 100) / 100f;
             hover.append(Component.text("Locate: ", NamedTextColor.BLUE).append(Component.text(locate, NamedTextColor.GOLD).append(Component.text(" (" + player.getWorld().getName() + ")", NamedTextColor.GOLD))));
             hover.append(CommonData.resetN());
             hover.append(Component.text("Ping: ", NamedTextColor.BLUE).append(Component.text(player.getPing(), NamedTextColor.GOLD)));

@@ -10,6 +10,7 @@ import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.TextComponent;
 import net.kyori.adventure.text.format.NamedTextColor;
 import one.tranic.ultralist.common.CommonData;
+import one.tranic.ultralist.common.ComponentUtils;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.Collection;
@@ -32,10 +33,16 @@ public class PluginCommand implements SimpleCommand {
         }
 
         TextComponent.@NotNull Builder builder = Component.text();
-        builder.append(Component.text("Active plugins: ", NamedTextColor.GOLD).append(CommonData.reset()));
+        builder.append(Component.text("Active plugins: ", NamedTextColor.GOLD).append(CommonData.resetN()));
         int i = 0;
         Collection<PluginContainer> plugins = server.getPluginManager().getPlugins();
         int size = plugins.size();
+
+        if (size == 0) {
+            builder.append(Component.text("<No plugins found>", NamedTextColor.RED));
+            source.sendMessage(builder.build());
+            return;
+        }
 
         for (PluginContainer plugin : plugins) {
             PluginDescription desc = plugin.getDescription();
@@ -44,20 +51,16 @@ public class PluginCommand implements SimpleCommand {
             TextComponent.@NotNull Builder hover = Component.text();
 
             if (!desc.getAuthors().isEmpty()) {
-                int r = 0;
-                StringBuilder authorStr = new StringBuilder();
-                for (String a : desc.getAuthors()) {
-                    authorStr.append(a);
-                    if (r != desc.getAuthors().size() - 1) {
-                        authorStr.append(", ");
-                    }
-                    r++;
-                }
-                hover.append(Component.text("Author: " + authorStr));
+                hover.append(
+                        Component.text("Authors: ")
+                                .append(ComponentUtils.getAuthors(desc.getAuthors())
+                                )
+                );
+                hover.append(Component.text("\n"));
             }
 
             if (desc.getVersion().isPresent()) {
-                hover.append(Component.text("\nVersion: " + desc.getVersion().get()));
+                hover.append(Component.text("Version: " + desc.getVersion().get()));
             }
 
             if (desc.getDescription().isPresent()) {
