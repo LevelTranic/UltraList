@@ -1,5 +1,5 @@
 name: UltraList
-version: '1.0-SNAPSHOT'
+version: '${version}'
 api-version: '1.18'
 authors: [ "404" ]
 description: "Ultralist brings enhanced player lists and plugin lists"
@@ -21,3 +21,6 @@ permissions:
     default: op
 depend:
   - MavenLoader
+libraries:
+  - net.kyori:adventure-platform-bukkit:4.3.4
+  - net.kyori:adventure-text-minimessage:4.17.0

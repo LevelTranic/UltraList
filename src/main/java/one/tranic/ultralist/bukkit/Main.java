@@ -1,32 +1,23 @@
 package one.tranic.ultralist.bukkit;
 
-import net.kyori.adventure.platform.bukkit.BukkitAudiences;
 import one.tranic.ultralist.bukkit.commands.ListCommand;
 import one.tranic.ultralist.bukkit.commands.PluginsCommand;
+import one.tranic.ultralist.common.MessageSender;
 import org.bukkit.Bukkit;
 import org.bukkit.command.SimpleCommandMap;
 import org.bukkit.plugin.java.JavaPlugin;
-import org.jetbrains.annotations.NotNull;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.lang.reflect.Field;
 
 public final class Main extends JavaPlugin {
-    private static BukkitAudiences adventure;
     private final Logger logger = LoggerFactory.getLogger("UltraList");
     private Metrics metrics;
 
-    public static @NotNull BukkitAudiences adventure() {
-        if (adventure == null)
-            throw new IllegalStateException("Tried to access Adventure when the plugin was disabled!");
-        return adventure;
-    }
-
     @Override
     public void onEnable() {
-        if (adventure == null)
-            adventure = BukkitAudiences.create(this);
+        MessageSender.setPlugin(this);
         logger.info("Initializing UltraList (Spigot)");
         metrics = new Metrics(this, 23595);
         try {
@@ -44,11 +35,8 @@ public final class Main extends JavaPlugin {
 
     @Override
     public void onDisable() {
+        MessageSender.close();
         logger.info("Shutting down UltraList (Spigot)");
-        if (adventure != null) {
-            adventure.close();
-            adventure = null;
-        }
         if (metrics != null) {
             metrics.shutdown();
         }

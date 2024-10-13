@@ -5,9 +5,9 @@ import net.kyori.adventure.text.TextComponent;
 import net.kyori.adventure.text.format.NamedTextColor;
 import net.kyori.adventure.text.format.TextColor;
 import one.tranic.ultralist.bukkit.ExpandDescription;
-import one.tranic.ultralist.bukkit.Main;
 import one.tranic.ultralist.common.CommonData;
 import one.tranic.ultralist.common.ComponentUtils;
+import one.tranic.ultralist.common.MessageSender;
 import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
@@ -31,7 +31,7 @@ public class PluginsCommand extends Command {
     @Override
     public boolean execute(@NotNull CommandSender sender, @NotNull String commandLabel, @NotNull String[] args) {
         if (!hasPermission(sender)) {
-            Main.adventure().sender(sender).sendMessage(Component.text("You do not have permission to use this command!", NamedTextColor.RED));
+            MessageSender.sendMessage(Component.text("You do not have permission to use this command!", NamedTextColor.RED), sender);
             return true;
         }
         Plugin[] plugins = Bukkit.getPluginManager().getPlugins();
@@ -42,7 +42,7 @@ public class PluginsCommand extends Command {
         if (size == 0) {
             builder.append(Component.text("Plugins (" + size + "): \n", NamedTextColor.GOLD).append(CommonData.reset()));
             builder.append(Component.text("<No plugins found>", NamedTextColor.RED));
-            Main.adventure().sender(sender).sendMessage(builder.build());
+            MessageSender.sendMessage(builder.build(), sender);
             return true;
         }
 
@@ -82,7 +82,7 @@ public class PluginsCommand extends Command {
             builder.append(classicBuilder.build());
         }
 
-        Main.adventure().sender(sender).sendMessage(builder.build());
+        MessageSender.sendMessage(builder.build(), sender);
         return true;
     }
 

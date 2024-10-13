@@ -3,8 +3,8 @@ package one.tranic.ultralist.bukkit.commands;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.TextComponent;
 import net.kyori.adventure.text.format.NamedTextColor;
-import one.tranic.ultralist.bukkit.Main;
 import one.tranic.ultralist.common.CommonData;
+import one.tranic.ultralist.common.MessageSender;
 import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
@@ -31,7 +31,7 @@ public class ListCommand extends Command {
         builder.append(Component.text(" players online: \n", NamedTextColor.WHITE));
 
         if (players.isEmpty()) {
-            Main.adventure().sender(sender).sendMessage(builder.build());
+            MessageSender.sendMessage(builder.build(), sender);
             return true;
         }
 
@@ -45,7 +45,7 @@ public class ListCommand extends Command {
             }
         }
 
-        Main.adventure().sender(sender).sendMessage(builder.build());
+        MessageSender.sendMessage(builder.build(), sender);
         return true;
     }
 
