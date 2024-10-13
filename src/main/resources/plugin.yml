@@ -1,10 +1,12 @@
 name: UltraList
 version: '1.0-SNAPSHOT'
-main: one.tranic.ultralist.bukkit.Main
 api-version: '1.18'
-load: STARTUP
 authors: [ "404" ]
+description: "Ultralist brings enhanced player lists and plugin lists"
 website: https://tranic.one
+main: one.tranic.ultralist.bukkit.Main
+load: STARTUP
+folia-supported: true
 commands:
   plugins:
     description: "plugins command"
@@ -12,5 +14,10 @@ commands:
   list:
     description: "list command"
     permission: ultralist.list
+permissions:
+  ultralist.plugins:
+    default: op
+  ultralist.list:
+    default: op
 depend:
   - MavenLoader
