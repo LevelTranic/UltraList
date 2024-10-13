@@ -64,7 +64,7 @@ public class ComponentUtils {
         TextComponent.@NotNull Builder hover = Component.text();
         if (!desc.getAuthors().isEmpty()) {
             hover.append(Component.text("Author: ", NamedTextColor.GOLD)
-                    .append(ComponentUtils.getAuthors(desc.getAuthors()).color(NamedTextColor.GREEN))
+                    .append(ComponentUtils.getAuthors(desc.getAuthors()))
             );
             hover.append(CommonData.resetN());
         }
