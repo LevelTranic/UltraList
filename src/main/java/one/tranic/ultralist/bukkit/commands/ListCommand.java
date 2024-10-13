@@ -35,10 +35,14 @@ public class ListCommand extends Command {
             return true;
         }
 
-        if (hasPermission(sender)) {
-            formatWithPermission(builder, players);
-        } else {
+        if (isConsole(sender)) {
             formatWithVanilla(builder, players);
+        } else {
+            if (hasPermission(sender)) {
+                formatWithPermission(builder, players);
+            } else {
+                formatWithVanilla(builder, players);
+            }
         }
 
         Main.adventure().sender(sender).sendMessage(builder.build());
@@ -85,7 +89,11 @@ public class ListCommand extends Command {
         }
     }
 
+    private boolean isConsole(@NotNull CommandSender sender) {
+        return !(sender instanceof Player);
+    }
+
     private boolean hasPermission(@NotNull CommandSender sender) {
-        return !(sender instanceof Player) || this.testPermission(sender);
+        return isConsole(sender) || this.testPermission(sender);
     }
 }
