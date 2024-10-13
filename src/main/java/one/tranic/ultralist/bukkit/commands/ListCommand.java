@@ -24,17 +24,16 @@ public class ListCommand extends Command {
         TextComponent.@NotNull Builder builder = Component.text();
         Collection<? extends Player> players = Bukkit.getOnlinePlayers();
 
-        if (players.isEmpty()) {
-            builder.append(Component.text("Online Players:").append(Component.text("<Server is empty>", NamedTextColor.RED)));
-            Main.adventure().sender(sender).sendMessage(builder.build());
-            return true;
-        }
-
         builder.append(Component.text("There are ", NamedTextColor.WHITE));
         builder.append(Component.text(players.size(), NamedTextColor.AQUA));
         builder.append(Component.text(" of a max of ", NamedTextColor.WHITE));
         builder.append(Component.text(Bukkit.getMaxPlayers(), NamedTextColor.AQUA));
         builder.append(Component.text(" players online: \n", NamedTextColor.WHITE));
+
+        if (players.isEmpty()) {
+            Main.adventure().sender(sender).sendMessage(builder.build());
+            return true;
+        }
 
         if (hasPermission(sender)) {
             formatWithPermission(builder, players);

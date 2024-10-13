@@ -103,12 +103,10 @@ public class PluginsCommand extends Command {
                 try {
                     YamlConfiguration configuration = YamlConfiguration.loadConfiguration(bukkitPlugin);
                     return new ExpandDescription(configuration.getBoolean("folia-supported"), false);
-                } catch (Exception e) {
-                    e.printStackTrace();
+                } catch (Exception ignored) {
                 }
             }
-        } catch (Exception e) {
-            e.printStackTrace();
+        } catch (Exception ignored) {
         }
 
         return new ExpandDescription(false, false);
