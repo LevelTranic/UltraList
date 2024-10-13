@@ -9,7 +9,7 @@ import com.velocitypowered.api.proxy.ProxyServer;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.TextComponent;
 import net.kyori.adventure.text.format.NamedTextColor;
-import net.kyori.adventure.text.minimessage.MiniMessage;
+import one.tranic.ultralist.common.CommonData;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.Collection;
@@ -18,7 +18,6 @@ import java.util.concurrent.CompletableFuture;
 
 public class PluginCommand implements SimpleCommand {
     private final ProxyServer server;
-    private final @NotNull Component reset = MiniMessage.miniMessage().deserialize("<reset>");
 
     public PluginCommand(ProxyServer server) {
         this.server = server;
@@ -33,7 +32,7 @@ public class PluginCommand implements SimpleCommand {
         }
 
         TextComponent.@NotNull Builder builder = Component.text();
-        builder.append(Component.text("Plugins: ", NamedTextColor.GOLD).append(reset));
+        builder.append(Component.text("Active plugins: ", NamedTextColor.GOLD).append(CommonData.reset()));
         int i = 0;
         Collection<PluginContainer> plugins = server.getPluginManager().getPlugins();
         int size = plugins.size();

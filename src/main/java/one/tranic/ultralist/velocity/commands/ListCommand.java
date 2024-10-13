@@ -9,7 +9,7 @@ import com.velocitypowered.api.proxy.server.RegisteredServer;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.TextComponent;
 import net.kyori.adventure.text.format.NamedTextColor;
-import net.kyori.adventure.text.minimessage.MiniMessage;
+import one.tranic.ultralist.common.CommonData;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.Collection;
@@ -18,7 +18,6 @@ import java.util.concurrent.CompletableFuture;
 
 public class ListCommand implements SimpleCommand {
     private final ProxyServer server;
-    private final @NotNull Component reset = MiniMessage.miniMessage().deserialize("<reset>");
 
     public ListCommand(ProxyServer server) {
         this.server = server;
@@ -33,8 +32,9 @@ public class ListCommand implements SimpleCommand {
         }
 
         TextComponent.@NotNull Builder builder = Component.text();
-        builder.append(Component.text("All Server Online Player\n", NamedTextColor.YELLOW).append(reset));
-        builder.append(Component.text("Servers: ").append(reset).append(Component.text(getOnlineServers() + "/" + server.getAllServers().size())));
+
+        builder.append(Component.text("All Server Online Player\n", NamedTextColor.YELLOW).append(CommonData.reset()));
+        builder.append(Component.text("Servers: ").append(CommonData.reset()).append(Component.text(getOnlineServers() + "/" + server.getAllServers().size())));
         builder.append(Component.text("\n"));
 
         for (RegisteredServer server : server.getAllServers()) {
@@ -42,10 +42,10 @@ public class ListCommand implements SimpleCommand {
                     Component.text("======>   ", NamedTextColor.GOLD)
                             .append(Component.text(server.getServerInfo().getName(), NamedTextColor.BLUE))
                             .append(Component.text("   <=====\n", NamedTextColor.GOLD))
-                            .append(reset)
+                            .append(CommonData.reset())
             );
             if (!isServerOnline(server)) {
-                builder.append(Component.text("<Server Offline>\n", NamedTextColor.RED).append(reset));
+                builder.append(Component.text("<Server Offline>\n", NamedTextColor.RED).append(CommonData.reset()));
                 continue;
             }
             Collection<Player> players = server.getPlayersConnected();
@@ -65,7 +65,7 @@ public class ListCommand implements SimpleCommand {
                 }
                 i++;
             }
-            builder.append(MiniMessage.miniMessage().deserialize("<reset>\n"));
+            builder.append(CommonData.resetN());
         }
         source.sendMessage(builder);
     }

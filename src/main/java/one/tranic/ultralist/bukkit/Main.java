@@ -32,8 +32,8 @@ public final class Main extends JavaPlugin {
             commandMapField.setAccessible(true);
             SimpleCommandMap commandMap = (SimpleCommandMap) commandMapField.get(Bukkit.getPluginManager());
 
-            commandMap.register("ultralist", "ultralist", new ListCommand());
-            commandMap.register("ultraplugins", "ultralist", new PluginsCommand());
+            commandMap.register("uls", "ultralist", new ListCommand());
+            commandMap.register("upl", "ultralist", new PluginsCommand());
 
         } catch (Exception e) {
             throw new RuntimeException(e);

@@ -3,9 +3,9 @@ package one.tranic.ultralist.bukkit.commands;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.TextComponent;
 import net.kyori.adventure.text.format.NamedTextColor;
-import net.kyori.adventure.text.minimessage.MiniMessage;
 import one.tranic.ultralist.bukkit.ExpandDescription;
 import one.tranic.ultralist.bukkit.Main;
+import one.tranic.ultralist.common.CommonData;
 import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
@@ -19,11 +19,8 @@ import java.io.IOException;
 import java.io.InputStream;
 
 public class PluginsCommand extends Command {
-    private final @NotNull Component reset = MiniMessage.miniMessage().deserialize("<reset>");
-    private final @NotNull Component resetN = MiniMessage.miniMessage().deserialize("<reset>\n");
-
     public PluginsCommand() {
-        super("ultraplugins");
+        super("upl");
         this.setPermission("ultralist.plugins");
     }
 
@@ -34,7 +31,7 @@ public class PluginsCommand extends Command {
             return true;
         }
         TextComponent.@NotNull Builder builder = Component.text();
-        builder.append(Component.text("Plugins: \n", NamedTextColor.GOLD).append(reset));
+        builder.append(Component.text("Plugins: \n", NamedTextColor.GOLD).append(CommonData.reset()));
         int i = 0;
         Plugin[] plugins = Bukkit.getPluginManager().getPlugins();
         int size = plugins.length;
@@ -72,7 +69,7 @@ public class PluginsCommand extends Command {
             builder.append(Component.text(plugin.getName(), NamedTextColor.GREEN).hoverEvent(hover.build()));
 
             if (i < size - 1) {
-                builder.append(reset.append(Component.text(", ")));
+                builder.append(CommonData.reset().append(Component.text(", ")));
             }
             i++;
         }
