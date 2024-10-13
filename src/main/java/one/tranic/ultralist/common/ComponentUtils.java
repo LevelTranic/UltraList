@@ -12,12 +12,13 @@ import java.util.Map;
 
 public class ComponentUtils {
     private static Boolean hasPlugManX = null;
+
     public static Component getAuthors(List<String> authors) {
         TextComponent.@NotNull Builder builder = Component.text();
         int size = authors.size();
         for (int i = 0; i < size; i++) {
-            if (i > 0) builder.append(Component.text(i < size - 1 ? ", " : " and "));
-            builder.append(Component.text(authors.get(i)));
+            if (i > 0) builder.append(Component.text(i < size - 1 ? ", " : " and ", NamedTextColor.WHITE));
+            builder.append(Component.text(authors.get(i), NamedTextColor.GREEN));
         }
         return builder.build();
     }

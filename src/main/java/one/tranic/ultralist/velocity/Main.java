@@ -39,8 +39,8 @@ public class Main {
         logger.info("Initializing UltraList (Velocity)");
         metrics = metricsFactory.make(this, 23594);
 
-        useCommand(new ListCommand(proxy), "vlist");
-        useCommand(new PluginCommand(proxy), "vplugins");
+        useCommand(new ListCommand(proxy), "vlist", "vls");
+        useCommand(new PluginCommand(proxy), "vplugins", "vpls");
     }
 
     @Subscribe
@@ -55,6 +55,15 @@ public class Main {
         CommandManager commandManager = proxy.getCommandManager();
         CommandMeta commandMeta = commandManager.metaBuilder(alias)
                 .plugin(this)
+                .build();
+        commandManager.register(commandMeta, command);
+    }
+
+    void useCommand(SimpleCommand command, String alias, String... aliases) {
+        CommandManager commandManager = proxy.getCommandManager();
+        CommandMeta commandMeta = commandManager.metaBuilder(alias)
+                .plugin(this)
+                .aliases(aliases)
                 .build();
         commandManager.register(commandMeta, command);
     }

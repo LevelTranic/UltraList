@@ -9,6 +9,7 @@ import com.velocitypowered.api.proxy.ProxyServer;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.TextComponent;
 import net.kyori.adventure.text.format.NamedTextColor;
+import net.kyori.adventure.text.format.TextColor;
 import one.tranic.ultralist.common.CommonData;
 import one.tranic.ultralist.common.ComponentUtils;
 import org.jetbrains.annotations.NotNull;
@@ -32,11 +33,12 @@ public class PluginCommand implements SimpleCommand {
             return;
         }
 
-        TextComponent.@NotNull Builder builder = Component.text();
-        builder.append(Component.text("Active plugins: ", NamedTextColor.GOLD).append(CommonData.resetN()));
-        int i = 0;
         Collection<PluginContainer> plugins = server.getPluginManager().getPlugins();
         int size = plugins.size();
+
+        TextComponent.@NotNull Builder builder = Component.text();
+        builder.append(Component.text("Velocity plugins: ("+size+"): ", TextColor.color(2, 136, 209)).append(CommonData.resetN()));
+        int i = 0;
 
         if (size == 0) {
             builder.append(Component.text("<No plugins found>", NamedTextColor.RED));
@@ -51,28 +53,29 @@ public class PluginCommand implements SimpleCommand {
             TextComponent.@NotNull Builder hover = Component.text();
 
             if (!desc.getAuthors().isEmpty()) {
-                hover.append(
-                        Component.text("Authors: ")
-                                .append(ComponentUtils.getAuthors(desc.getAuthors())
-                                )
-                );
-                hover.append(Component.text("\n"));
+                hover.append(Component.text("Authors: ", NamedTextColor.GOLD));
+                hover.append(ComponentUtils.getAuthors(desc.getAuthors()));
+                hover.append(CommonData.resetN());
             }
 
             if (desc.getVersion().isPresent()) {
-                hover.append(Component.text("Version: " + desc.getVersion().get()));
+                hover.append(Component.text("Version: ", NamedTextColor.GOLD));
+                hover.append(Component.text(desc.getVersion().get(), NamedTextColor.GREEN));
             }
 
             if (desc.getDescription().isPresent()) {
-                hover.append(Component.text("\nDescription: " + desc.getDescription().get()));
+                hover.append(Component.text("\nDescription: ", NamedTextColor.GOLD));
+                hover.append(Component.text(desc.getDescription().get(), NamedTextColor.GREEN));
             }
 
             if (desc.getUrl().isPresent()) {
-                hover.append(Component.text("\nWebsite: " + desc.getUrl().get()));
+                hover.append(Component.text("\nWebsite: ", NamedTextColor.GOLD));
+                hover.append(Component.text(desc.getUrl().get(), NamedTextColor.GREEN));
             }
 
             if (!desc.getId().isEmpty()) {
-                hover.append(Component.text("\nPlugin ID: " + desc.getId()));
+                hover.append(Component.text("\nPlugin ID: ", NamedTextColor.GOLD));
+                hover.append(Component.text(desc.getId(), NamedTextColor.GREEN));
             }
 
             builder.append(Component.text(desc.getName().get(), NamedTextColor.GREEN).hoverEvent(hover.build()));
@@ -81,7 +84,6 @@ public class PluginCommand implements SimpleCommand {
             }
             i++;
         }
-
 
         source.sendMessage(builder.build());
     }
