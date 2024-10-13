@@ -19,10 +19,12 @@ import org.simpleyaml.configuration.file.YamlConfiguration;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.HashMap;
+import java.util.List;
 
 public class PluginsCommand extends Command {
     public PluginsCommand() {
         super("upl");
+        this.setAliases(List.of("upls"));
         this.setPermission("ultralist.plugins");
     }
 
