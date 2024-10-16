@@ -9,6 +9,7 @@ import net.md_5.bungee.api.config.ServerInfo;
 import net.md_5.bungee.api.connection.ProxiedPlayer;
 import net.md_5.bungee.api.plugin.Command;
 import one.tranic.ultralist.bungee.ServerStatus;
+import one.tranic.ultralist.common.CommonData;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
@@ -41,8 +42,13 @@ public class ListCommand extends Command {
             ServerInfo ser = entry.getValue();
 
             ser.ping((p, t) -> {
-                if (t != null) {
+                builder.append(Component.text(serverName, NamedTextColor.AQUA));
+                builder.append(Component.text(" => \n", NamedTextColor.GOLD));
+                builder.append(CommonData.resetN());
+                if (t != null && p != null) {
                     p.getPlayers();
+                } else {
+                    builder.append(Component.text(" <Offline>", NamedTextColor.AQUA));
                 }
             });
         }
