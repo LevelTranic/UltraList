@@ -3,7 +3,6 @@ package one.tranic.ultralist.bungee;
 import net.md_5.bungee.api.plugin.Plugin;
 import one.tranic.ultralist.bungee.command.ListCommand;
 import one.tranic.ultralist.bungee.command.PluginsCommand;
-import one.tranic.ultralist.common.MessageSender;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -13,7 +12,6 @@ public class Main extends Plugin {
 
     @Override
     public void onEnable() {
-        MessageSender.setPlugin(this);
         logger.info("Initializing UltraList (BungeeCord)");
         metrics = new Metrics(this, 23613);
 

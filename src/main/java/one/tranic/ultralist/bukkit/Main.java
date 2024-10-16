@@ -2,7 +2,6 @@ package one.tranic.ultralist.bukkit;
 
 import one.tranic.ultralist.bukkit.commands.ListCommand;
 import one.tranic.ultralist.bukkit.commands.PluginsCommand;
-import one.tranic.ultralist.common.MessageSender;
 import org.bukkit.Bukkit;
 import org.bukkit.command.SimpleCommandMap;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -17,7 +16,6 @@ public final class Main extends JavaPlugin {
 
     @Override
     public void onEnable() {
-        MessageSender.setPlugin(this);
         logger.info("Initializing UltraList (Spigot)");
         metrics = new Metrics(this, 23595);
         try {
@@ -35,7 +33,6 @@ public final class Main extends JavaPlugin {
 
     @Override
     public void onDisable() {
-        MessageSender.close();
         logger.info("Shutting down UltraList (Spigot)");
         if (metrics != null) {
             metrics.shutdown();
