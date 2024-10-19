@@ -3,5 +3,4 @@ version: '${version}'
 main: one.tranic.ultralist.bungee.Main
 author: 404
 libraries:
-  - net.kyori:adventure-platform-bungeecord:4.3.4
   - net.kyori:adventure-text-minimessage:4.17.0
