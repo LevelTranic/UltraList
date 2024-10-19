@@ -34,6 +34,7 @@ dependencies {
 
     compileOnly(files("libs/MavenLoader-1.6-SNAPSHOT.jar"))
 
+    compileOnly("it.unimi.dsi:fastutil:8.5.13")
     implementation("com.github.Carleslc.Simple-YAML:Simple-Yaml:1.8.4")
 }
 

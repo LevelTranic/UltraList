@@ -6,7 +6,6 @@ import net.kyori.adventure.text.event.ClickEvent;
 import net.kyori.adventure.text.format.NamedTextColor;
 import org.jetbrains.annotations.NotNull;
 
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -23,7 +22,7 @@ public class ComponentUtils {
         return builder.build();
     }
 
-    public static Component formatBukkitPlugins(HashMap<
+    public static Component formatBukkitPlugins(Map<
             org.bukkit.plugin.Plugin,
             one.tranic.ultralist.paper.ExpandDescription
             > components) {

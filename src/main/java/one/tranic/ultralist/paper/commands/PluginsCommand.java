@@ -1,5 +1,6 @@
 package one.tranic.ultralist.paper.commands;
 
+import it.unimi.dsi.fastutil.objects.Object2ObjectOpenHashMap;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.TextComponent;
 import net.kyori.adventure.text.format.NamedTextColor;
@@ -18,8 +19,8 @@ import org.simpleyaml.configuration.file.YamlConfiguration;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class PluginsCommand extends Command {
     public PluginsCommand() {
@@ -46,8 +47,8 @@ public class PluginsCommand extends Command {
             return true;
         }
 
-        HashMap<Plugin, ExpandDescription> classicPlugins = new HashMap<>();
-        HashMap<Plugin, ExpandDescription> paperPlugins = new HashMap<>();
+        Map<Plugin, ExpandDescription> classicPlugins = new Object2ObjectOpenHashMap<>();
+        Map<Plugin, ExpandDescription> paperPlugins = new Object2ObjectOpenHashMap<>();
 
         for (Plugin plugin : plugins) {
             ExpandDescription expand = getExpandDescription(plugin);

@@ -1,5 +1,0 @@
-reference-load: true
-platform:
-  bungeecord:
-    - net.kyori:adventure-platform-bungeecord:4.3.4
-    - net.kyori:adventure-text-minimessage:4.17.0

@@ -14,3 +14,5 @@ permissions:
     default: op
 depend:
   - MavenLoader
+libraries:
+  - it.unimi.dsi:fastutil:8.5.13
