@@ -1,4 +1,4 @@
-package one.tranic.ultralist.bukkit.commands;
+package one.tranic.ultralist.paper.commands;
 
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.TextComponent;
@@ -8,15 +8,16 @@ import one.tranic.ultralist.common.CommonData;
 import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
+import org.bukkit.command.ConsoleCommandSender;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.Collection;
 
 public class ListCommand extends Command {
+    private final String permission = "ultralist.list";
     public ListCommand() {
         super("uls");
-        this.setPermission("ultralist.list");
     }
 
     @Override
@@ -35,14 +36,10 @@ public class ListCommand extends Command {
             return true;
         }
 
-        if (isConsole(sender)) {
+        if (isConsole(sender) || !hasPermission(sender)) {
             formatWithVanilla(builder, players);
         } else {
-            if (hasPermission(sender)) {
-                formatWithPermission(builder, players);
-            } else {
-                formatWithVanilla(builder, players);
-            }
+            formatWithPermission(builder, players);
         }
 
         MessageSender.sendMessage(builder.build(), sender);
@@ -90,10 +87,10 @@ public class ListCommand extends Command {
     }
 
     private boolean isConsole(@NotNull CommandSender sender) {
-        return !(sender instanceof Player);
+        return (sender instanceof ConsoleCommandSender);
     }
 
     private boolean hasPermission(@NotNull CommandSender sender) {
-        return isConsole(sender) || this.testPermission(sender);
+        return isConsole(sender) || (sender.isOp() || sender.hasPermission(permission));
     }
 }

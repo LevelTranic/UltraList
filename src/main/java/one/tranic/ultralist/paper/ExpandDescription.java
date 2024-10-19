@@ -1,3 +1,3 @@
-package one.tranic.ultralist.bukkit;
+package one.tranic.ultralist.paper;
 
 public record ExpandDescription(boolean isFolia, boolean isPaperPlugin) {}

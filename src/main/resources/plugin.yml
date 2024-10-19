@@ -4,16 +4,9 @@ api-version: '1.18'
 authors: [ "404" ]
 description: "Ultralist brings enhanced player lists and plugin lists"
 website: https://tranic.one
-main: one.tranic.ultralist.bukkit.Main
+main: one.tranic.ultralist.paper.Main
 load: STARTUP
 folia-supported: true
-commands:
-  upls:
-    description: "plugins command"
-    permission: ultralist.plugins
-  uls:
-    description: "list command"
-    permission: ultralist.list
 permissions:
   ultralist.plugins:
     default: op

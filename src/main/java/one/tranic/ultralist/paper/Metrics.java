@@ -1,4 +1,4 @@
-package one.tranic.ultralist.bukkit;
+package one.tranic.ultralist.paper;
 
 /*
  * This Metrics class was auto-generated and can be copied into your project if you are

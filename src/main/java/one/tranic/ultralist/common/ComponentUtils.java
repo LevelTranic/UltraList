@@ -25,17 +25,17 @@ public class ComponentUtils {
 
     public static Component formatBukkitPlugins(HashMap<
             org.bukkit.plugin.Plugin,
-            one.tranic.ultralist.bukkit.ExpandDescription
+            one.tranic.ultralist.paper.ExpandDescription
             > components) {
         int i = 0;
         int size = components.size();
         TextComponent.@NotNull Builder builder = Component.text();
         for (Map.Entry<
                 org.bukkit.plugin.Plugin,
-                one.tranic.ultralist.bukkit.ExpandDescription
+                one.tranic.ultralist.paper.ExpandDescription
                 > set : components.entrySet()) {
             org.bukkit.plugin.Plugin plugin = set.getKey();
-            one.tranic.ultralist.bukkit.ExpandDescription expDesc = set.getValue();
+            one.tranic.ultralist.paper.ExpandDescription expDesc = set.getValue();
 
             builder.append(formatBukkitPluginClickEvent(plugin).hoverEvent(formatBukkitPluginHover(plugin, expDesc)));
 
@@ -57,7 +57,7 @@ public class ComponentUtils {
 
     public static Component formatBukkitPluginHover(
             org.bukkit.plugin.Plugin plugin,
-            one.tranic.ultralist.bukkit.ExpandDescription expDesc
+            one.tranic.ultralist.paper.ExpandDescription expDesc
     ) {
         org.bukkit.plugin.PluginDescriptionFile desc = plugin.getDescription();
 

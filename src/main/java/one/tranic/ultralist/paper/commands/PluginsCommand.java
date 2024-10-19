@@ -1,11 +1,11 @@
-package one.tranic.ultralist.bukkit.commands;
+package one.tranic.ultralist.paper.commands;
 
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.TextComponent;
 import net.kyori.adventure.text.format.NamedTextColor;
 import net.kyori.adventure.text.format.TextColor;
 import one.tranic.mavenloader.common.MessageSender;
-import one.tranic.ultralist.bukkit.ExpandDescription;
+import one.tranic.ultralist.paper.ExpandDescription;
 import one.tranic.ultralist.common.CommonData;
 import one.tranic.ultralist.common.ComponentUtils;
 import org.bukkit.Bukkit;

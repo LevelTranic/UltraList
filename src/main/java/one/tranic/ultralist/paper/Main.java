@@ -1,7 +1,7 @@
-package one.tranic.ultralist.bukkit;
+package one.tranic.ultralist.paper;
 
-import one.tranic.ultralist.bukkit.commands.ListCommand;
-import one.tranic.ultralist.bukkit.commands.PluginsCommand;
+import one.tranic.ultralist.paper.commands.ListCommand;
+import one.tranic.ultralist.paper.commands.PluginsCommand;
 import org.bukkit.Bukkit;
 import org.bukkit.command.SimpleCommandMap;
 import org.bukkit.plugin.java.JavaPlugin;
