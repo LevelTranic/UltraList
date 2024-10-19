@@ -8,10 +8,10 @@ main: one.tranic.ultralist.bukkit.Main
 load: STARTUP
 folia-supported: true
 commands:
-  plugins:
+  upls:
     description: "plugins command"
     permission: ultralist.plugins
-  list:
+  uls:
     description: "list command"
     permission: ultralist.list
 permissions:

@@ -20,7 +20,7 @@ import java.util.Set;
 public class ListCommand extends Command {
     private final ProxyServer server = ProxyServer.getInstance();
     public ListCommand() {
-        super("list", "ultralist.list", "bls");
+        super("bls", "ultralist.list");
     }
 
     @Override

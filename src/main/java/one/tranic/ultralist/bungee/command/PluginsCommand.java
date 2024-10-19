@@ -5,7 +5,7 @@ import net.md_5.bungee.api.plugin.Command;
 
 public class PluginsCommand extends Command {
     public PluginsCommand() {
-        super("plugins", "ultralist.plugins", "bpls");
+        super("bpls", "ultralist.plugins");
     }
 
     @Override
